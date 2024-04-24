@@ -10,31 +10,38 @@ button.addEventListener("click", ()=>{
 
 async function checkWeather(city){
     const response = await fetch(apiUrl + city + "&appid=" + apiKey)
-    var data = await response.json()
 
-    // console.log(data)
+    if(response.status == 404){
+        document.querySelector(".undefined").style.display = "block"
+        document.querySelector(".weather").style.display = "none"
+    }else{
+        var data = await response.json()
 
-    document.querySelector(".city").innerHTML = data.name
-    document.querySelector(".temp").innerHTML = Math.round(data.main.temp) + "°C"
-    document.querySelector(".humidity").innerHTML = data.main.humidity + "%"
-    document.querySelector(".wind").innerHTML = data.wind.speed + " km/hr"
+        // console.log(data)
 
-    if(data.weather[0].main == 'Clear')
-        weather.src = './images/clear.png'
-    else if(data.weather[0].main == 'Clouds')
-        weather.src = './images/clouds.png'
-    else if(data.weather[0].main == 'Drizzle')
-        weather.src = './images/drizzle.png'
-    else if(data.weather[0].main == 'Mist')
-        weather.src = './images/mist.png'
-    else if(data.weather[0].main == 'Rain')
-        weather.src = './images/rain.png'
-    else if(data.weather[0].main == 'Snow')
-        weather.src = './images/snow.png'
-    else if(data.weather[0].main == 'Thunder')
-        weather.src = './images/thunder.png'
-    else if(data.weather[0].main == 'Thunderstorm')
-        weather.src = './images/thunderstorm.png'
+        document.querySelector(".city").innerHTML = data.name
+        document.querySelector(".temp").innerHTML = Math.round(data.main.temp) + "°C"
+        document.querySelector(".humidity").innerHTML = data.main.humidity + "%"
+        document.querySelector(".wind").innerHTML = data.wind.speed + " km/hr"
 
-    document.querySelector(".weather").style.display = "block"
+        if(data.weather[0].main == 'Clear')
+            weather.src = './images/clear.png'
+        else if(data.weather[0].main == 'Clouds')
+            weather.src = './images/clouds.png'
+        else if(data.weather[0].main == 'Drizzle')
+            weather.src = './images/drizzle.png'
+        else if(data.weather[0].main == 'Mist')
+            weather.src = './images/mist.png'
+        else if(data.weather[0].main == 'Rain')
+            weather.src = './images/rain.png'
+        else if(data.weather[0].main == 'Snow')
+            weather.src = './images/snow.png'
+        else if(data.weather[0].main == 'Thunder')
+            weather.src = './images/thunder.png'
+        else if(data.weather[0].main == 'Thunderstorm')
+            weather.src = './images/thunderstorm.png'
+
+        document.querySelector(".weather").style.display = "block"
+        document.querySelector(".undefined").style.display = "none"
+    }
 }
